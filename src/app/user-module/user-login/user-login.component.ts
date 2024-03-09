@@ -1,6 +1,7 @@
 import { Router } from '@angular/router';
 import { UserAuthenticationService } from './../services/user-authentication.service';
 import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-user-login',
@@ -10,15 +11,16 @@ import { Component } from '@angular/core';
 export class UserLoginComponent {
 
   public json:JSON = JSON
+console = console;
 
   constructor(private userAuthenticationService: UserAuthenticationService, public routerService: Router) { }
 
   userName: string = '';
   password: string = '';
 
-  login(login: any) {
-    this.userAuthenticationService.loginUser(login.userData.userName, login.userData.password);
-    this.routerService.navigate(['events'])
+  login(login: NgForm) {
+    this.userAuthenticationService.loginUser(login.value.userName, login.value.password);
+    this.routerService.navigate(['events']);
   }
 
 }

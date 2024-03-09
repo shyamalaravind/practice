@@ -5,6 +5,7 @@ import { CreateEventComponent } from "../events/create-event/create-event.compon
 import { Error404Component } from "../errors/404-error.component";
 import { RouteGuardService } from "../events/services/route-guard.service";
 import { UserProfileComponent } from "../user-module/user-profile/user-profile.component";
+import { UserLoginComponent } from "../user-module/user-login/user-login.component";
 
 export const appRoutes: Routes = [
   { path: 'events/new', component: CreateEventComponent },
@@ -16,5 +17,6 @@ export const appRoutes: Routes = [
 ]
 
 export const userRoutes: Routes = [
-  { path: 'profile', component: UserProfileComponent}
+  { path: 'profile', component: UserProfileComponent},
+  { path: 'login', component: UserLoginComponent}
 ]

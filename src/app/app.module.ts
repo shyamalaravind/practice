@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { appRoutes } from './routes/routes';
 import { CreateEventComponent } from './events/create-event/create-event.component';
 import { Error404Component } from './errors/404-error.component';
+import { UserAuthenticationService } from './user-module/services/user-authentication.service';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import { Error404Component } from './errors/404-error.component';
     BrowserModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [UserAuthenticationService],
   bootstrap: [EventsAppComponent]
 })
 export class AppModule { }

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 
 import { EventsAppComponent } from './events-app.component';
 import { EventsListComponent } from './events/events-list/events-list.component';
@@ -11,6 +11,9 @@ import { appRoutes } from './routes/routes';
 import { CreateEventComponent } from './events/create-event/create-event.component';
 import { Error404Component } from './errors/404-error.component';
 import { UserAuthenticationService } from './user-module/services/user-authentication.service';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,14 @@ import { UserAuthenticationService } from './user-module/services/user-authentic
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    StoreModule.forRoot(),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: !isDevMode(),
+      name: 'Events Service'
+    }),
+    ReactiveFormsModule
   ],
   providers: [UserAuthenticationService],
   bootstrap: [EventsAppComponent]

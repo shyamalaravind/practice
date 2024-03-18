@@ -10,9 +10,7 @@ import { NgForm } from '@angular/forms';
 })
 export class UserLoginComponent {
 
-  public json:JSON = JSON
-console = console;
-
+  mouseEnter = false;
   constructor(private userAuthenticationService: UserAuthenticationService, public routerService: Router) { }
 
   userName: string = '';

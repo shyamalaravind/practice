@@ -1,18 +1,43 @@
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
+import { FormControl, FormGroup } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { UserProfileUpdateAction } from '../state/user.action';
+import { currentUserNameSelector } from '../state/user.selector';
 
 @Component({
-  template: `
-    <h1>Edit Your Profile</h1>
-    <hr>
-    <div class="col-md-6">
-      <h3>[Edit profile form will go here]</h3>
-      <br />
-      <br />
-      <button type="submit" class="btn btn-primary">Save</button>
-      <button type="button" class="btn btn-default">Cancel</button>
-    </div>
-  `,
+  selector: 'user-profile',
+  templateUrl: './user-profile.component.html'
 })
-export class UserProfileComponent {
+export class UserProfileComponent implements OnInit {
 
+  constructor(private store: Store) {
+
+  }
+
+  profileForm: FormGroup<UserProfileForm> = new FormGroup({}) as any as FormGroup<UserProfileForm>;
+
+  ngOnInit(): void {
+    let firstName = '';
+    let lastName = '';
+
+    this.store.select(currentUserNameSelector).subscribe(currentUserName => {
+      firstName = currentUserName?.firstName || '';
+      lastName = currentUserName?.lastName || '';
+    })
+
+    this.profileForm = new FormGroup({ firstName: new FormControl(firstName), lastName: new FormControl(lastName) })
+  }
+
+  onForSubmit(profileForm: FormGroup<UserProfileForm>) {
+    this.store.dispatch(UserProfileUpdateAction({
+      firstName: profileForm.value.firstName || '',
+      lastName: profileForm.value.lastName || ''
+    }))
+  }
+
+}
+
+interface UserProfileForm {
+  firstName: FormControl<string | null>;
+  lastName: FormControl<string | null>;
 }

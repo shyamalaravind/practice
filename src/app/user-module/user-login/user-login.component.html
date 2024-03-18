@@ -4,26 +4,24 @@
   <form #loginForm="ngForm" (ngSubmit)="login(loginForm)" autocomplete="off">
     <div class="form-group">
       <label for="userName">User Name:</label>
-      <em *ngIf="!userNameControl.valid">Required!</em>
+      <em *ngIf="userNameControl.invalid && (userNameControl.dirty || mouseEnter)"> Required!</em>
       <input (ngModel)="userName" id="userName" type="text" class="form-control" placeholder="User Name..."
-        name="userName" #userNameControl = "ngModel"/>
+        name="userName" #userNameControl="ngModel" required />
     </div>
     <div class="form-group">
       <label for="password">Password:</label>
-      <em *ngIf="!passwordControl.valid">Required!</em>
+      <em *ngIf="passwordControl.invalid && (passwordControl.dirty || mouseEnter)"> Required!</em>
       <input (ngModel)="password" id="password" type="password" class="form-control" placeholder="Password..."
-        name="password" #passwordControl = "ngModel" />
+        name="password" #passwordControl="ngModel" required />
     </div>
 
-    <button [disabled]="loginForm.valid" type="submit" class="btn btn-primary">Login</button>
+    <span (mouseenter)="mouseEnter = true" (mouseleave)="mouseEnter = false"><button [disabled]="loginForm.invalid"
+        type="submit" class="btn btn-primary">Login</button></span>
     <button type="button" class="btn btn-default" (click)="routerService.navigate(['events'])">Cancel</button>
   </form>
 </div>
-
 <div>
-  {{console.log(userNameControl)}}
-</div>
-
-<div>
-  {{console.log(passwordControl)}}
-</div>
+  {{passwordControl.valid}} {{passwordControl.pristine}}
+  <br>
+  {{userNameControl.valid}} {{userNameControl.pristine}}
+  <div>
